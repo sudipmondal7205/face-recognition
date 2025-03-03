@@ -4,13 +4,13 @@ import os
 import time
 import openpyxl as xl
 
-wb = xl.load_workbook(r'C:\Users\sudip\Programme\Projects\Python\FaceRecognition\Attendence.xlsx')
+wb = xl.load_workbook(r'C:\Users\sudip\OneDrive\Programme\Projects\Python\FaceRecognition\Attendence.xlsx')
 sheet = wb.active
 row = sheet['A']
 names = [cell.value for cell in row]
-data_base = r'C:\Users\sudip\Programme\Projects\Python\FaceRecognition\images'
+data_base = r'C:\Users\sudip\OneDrive\Programme\Projects\Python\FaceRecognition\images'
 date = time.strftime(r'%d-%m-%Y')
-images = os.listdir(r'C:\Users\sudip\Programme\Projects\Python\FaceRecognition\images')
+images = os.listdir(r'C:\Users\sudip\OneDrive\Programme\Projects\Python\FaceRecognition\images')
 for item in images:
     if item.endswith('.pkl') :
         images.remove(item)
@@ -35,8 +35,9 @@ while True :
 
     try :
         match = DeepFace.find(img_path = frame, db_path = data_base, enforce_detection = True)
+        print('Match Found : ', match[0].iloc[0,0].split('\\')[-1][0:-4])
         if len(match[0]) > 0 :
-            name = match[0].iloc[0,0][64:-4]
+            name = match[0].iloc[0,0].split('\\')[-1][0:-4]
             text = name
             color = (0, 255, 0)
             Time = time.strftime('%I-%M-%S')
@@ -58,6 +59,6 @@ i=1
 for item in Attendence_list:
     sheet.cell(row=i, column=last_column + 1, value=item)
     i += 1
-wb.save(r'C:\Users\sudip\Programme\Projects\Python\FaceRecognition\Attendence.xlsx')
+wb.save(r'C:\Users\sudip\OneDrive\Programme\Projects\Python\FaceRecognition\Attendence.xlsx')
 cam.release()
 cv2.destroyAllWindows()

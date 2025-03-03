@@ -2,7 +2,7 @@ import cv2
 from deepface import DeepFace
 import os
 
-data_base = r'C:\Users\sudip\Programme\Projects\Python\FaceRecognition\images'
+data_base = r'C:\Users\sudip\OneDrive\Programme\Projects\Python\FaceRecognition\images'
 cam = cv2.VideoCapture(0)
 print("Opening webcam..... Press 'q' to quit....")
 while True :
