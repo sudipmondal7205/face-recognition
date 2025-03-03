@@ -4,13 +4,13 @@ import os
 import time
 import openpyxl as xl
 
-wb = xl.load_workbook(r'C:\Users\sudip\OneDrive\Programme\Projects\Python\FaceRecognition\Attendence.xlsx')
+wb = xl.load_workbook('Attendence_Sheet_Path')
 sheet = wb.active
 row = sheet['A']
 names = [cell.value for cell in row]
-data_base = r'C:\Users\sudip\OneDrive\Programme\Projects\Python\FaceRecognition\images'
+data_base = 'Images_Directory_path'
 date = time.strftime(r'%d-%m-%Y')
-images = os.listdir(r'C:\Users\sudip\OneDrive\Programme\Projects\Python\FaceRecognition\images')
+images = os.listdir('Images_Directory_path')
 for item in images:
     if item.endswith('.pkl') :
         images.remove(item)
@@ -59,6 +59,6 @@ i=1
 for item in Attendence_list:
     sheet.cell(row=i, column=last_column + 1, value=item)
     i += 1
-wb.save(r'C:\Users\sudip\OneDrive\Programme\Projects\Python\FaceRecognition\Attendence.xlsx')
+wb.save('Attendence_Sheet_Path')
 cam.release()
 cv2.destroyAllWindows()
