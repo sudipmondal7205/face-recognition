@@ -1,30 +1,15 @@
-import cv2
-from deepface import DeepFace
-import os
+import base64
 
-data_base = r'C:\Users\sudip\OneDrive\Programme\Projects\Python\FaceRecognition\images'
-cam = cv2.VideoCapture(0)
-print("Opening webcam..... Press 'q' to quit....")
-while True :
-    camopened, frame = cam.read()
+# Decode the Base64 image data (assuming the user provides a valid base64 string)
+base64_data = ""  # Replace with actual base64 string if available
 
-    if not(camopened) :
-        print("Failed to capture frame.....  Exiting.....")
-        break
+# Convert to binary image data
+image_data = base64.b64decode(base64_data)
 
-    try :
-        match = DeepFace.find(img_path = frame, db_path = data_base, enforce_detection = True)
-        if len(match[0]) > 0 :
-            text = match[0].iloc[0,0][64:-4]
-            color = (0, 255, 0)
-        else :
-            text = 'NO MATCH'
-            color = (0, 0, 255)
-    except :
-        text = 'NO FACE DETECTED'
-        color = (0, 255, 255)
+# Save as a JPG file
+file_path = "converted_image.jpg"
+with open(file_path, "wb") as f:
+    f.write(image_data)
 
-    cv2.putText(frame, text, (25, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, color, 2, cv2.LINE_AA)
-    cv2.imshow('Live Face Recognition', frame)
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+# Return the file path for user to download
+file_path
